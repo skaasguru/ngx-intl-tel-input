@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as lpn from 'google-libphonenumber';
 
 /*

@@ -1,45 +1,19 @@
 {
-  "name": "ngx-intl-tel-input-gg",
-  "version": "1.0.10",
+  "name": "@skaas/ngx-intl-tel-input",
+  "version": "1.0.2",
+  "description": "An Angular package for entering and validating international telephone numbers",
   "peerDependencies": {
-    "@angular/common": "8.x - 17.x",
-    "@angular/core": "8.x - 17.x",
-    "@angular/forms": "8.x - 17.x",
-    "google-libphonenumber": "^3.2.3",
+    "@angular/common": "^16.2.0",
+    "@angular/core": "^16.2.0",
+    "@angular/forms": "^16.2.0",
     "intl-tel-input": "^17.0.3",
-    "ngx-bootstrap": "6.x - 12.x"
+    "libphonenumber-js": "^1.10.49",
+    "ngx-bootstrap": "^11.0.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/guillermodelagala/ngx-intl-tel-input"
+  "dependencies": {
+    "tslib": "^2.3.0"
   },
-  "author": {
-    "name": "webcat12345",
-    "email": "webcat91@gmail.com"
-  },
-  "keywords": [
-    "angular",
-    "ng8",
-    "ng9",
-    "ng10",
-    "angular 8",
-    "angular 9",
-    "angular 10",
-    "angular 11",
-    "angular 12",
-    "angular 13",
-    "angular 14",
-    "angular 15",
-    "angular 16",
-    "angular 17",
-    "intl-tel-input",
-    "phone number",
-    "validation"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/guillermodelagala/ngx-intl-tel-input/issues"
-  },
+  "sideEffects": false,
   "devDependencies": {
     "@types/google-libphonenumber": "^7.4.17"
   }

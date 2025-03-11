@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as lpn from 'google-libphonenumber';
 
 import {
@@ -48,7 +51,8 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
   @Input() value: string | undefined = '';
   @Input() preferredCountries: Array<string> = [];
   @Input() enablePlaceholder = true;
-  @Input() customPlaceholder: string;
+  @Input()
+  customPlaceholder!: string;
   @Input() numberFormat: PhoneNumberFormat = PhoneNumberFormat.International;
   @Input() cssClass = 'form-control';
   @Input() onlyCountries: Array<string> = [];
@@ -56,13 +60,16 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
   @Input() searchCountryFlag = false;
   @Input() searchCountryField: SearchCountryField[] = [SearchCountryField.All];
   @Input() searchCountryPlaceholder = 'Search Country';
-  @Input() maxLength: number;
+  @Input()
+  maxLength!: number;
   @Input() selectFirstCountry = true;
-  @Input() selectedCountryISO: CountryISO;
+  @Input()
+  selectedCountryISO!: CountryISO;
   @Input() phoneValidation = true;
   @Input() inputId = 'phone';
+  @Input() nationalMode = false;
   @Input() separateDialCode = false;
-  separateDialCodeClass: string;
+  separateDialCodeClass!: string;
 
   @Output() readonly countryChange = new EventEmitter<Country>();
 
@@ -86,7 +93,8 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
   errors: Array<any> = ['Phone number is required.'];
   countrySearchText = '';
 
-  @ViewChild('countryList') countryList: ElementRef;
+  @ViewChild('countryList')
+  countryList!: ElementRef;
 
   onTouched = () => {};
   propagateChange = (_: ChangeData) => {};
@@ -252,18 +260,24 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
       // @ts-ignore
       this.propagateChange(null);
     } else {
-      const intlNo = number
-        ? this.phoneUtil.format(number, lpn.PhoneNumberFormat.INTERNATIONAL)
+      const useNational =
+        this.nationalMode ||
+        (this.value.charAt(0) !== "+" && !this.separateDialCode);
+      const { NATIONAL, INTERNATIONAL } = lpn.PhoneNumberFormat;
+      const format = useNational ? NATIONAL : INTERNATIONAL;
+      const formattedNo = number
+        ? this.phoneUtil.format(number, format)
         : '';
+      this.phoneNumber = formattedNo;
 
       // parse phoneNumber if separate dial code is needed
-      if (this.separateDialCode && intlNo) {
-        this.value = this.removeDialCode(intlNo);
+      if (this.separateDialCode && formattedNo && format == INTERNATIONAL) {
+        this.value = this.removeDialCode(formattedNo);
       }
 
       this.propagateChange({
         number: this.value,
-        internationalNumber: intlNo,
+        internationalNumber: formattedNo,
         nationalNumber: number
           ? this.phoneUtil.format(number, lpn.PhoneNumberFormat.NATIONAL)
           : '',
@@ -389,7 +403,9 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
     let number: lpn.PhoneNumber;
     try {
       number = this.phoneUtil.parse(phoneNumber, countryCode.toUpperCase());
-    } catch (e) {}
+    } catch (e) {
+      // console.error(e);
+    }
     // @ts-ignore
     return number;
   }
@@ -480,9 +496,6 @@ export class NgxIntlTelInputComponent implements OnInit, OnChanges {
     }
   }
 
-  /**
-   * Clearing the list to avoid duplicates (https://github.com/guillermodelagala/ngx-intl-tel-input/issues/248)
-   */
   protected fetchCountryData(): void {
     this.allCountries = [];
 
