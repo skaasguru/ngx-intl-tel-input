@@ -7,33 +7,33 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "paths": {
-      "my-lib": [
-        "dist/my-lib/my-lib",
-        "dist/my-lib"
-      ]
-    },
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "strictPropertyInitialization": false,
     "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "types": ["jasmine"],
     "lib": [
-      "es2020",
+      "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-intl-tel-input": [
+        "dist/ngx-intl-tel-input"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
 }
